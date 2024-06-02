@@ -1,0 +1,616 @@
+{
+    "snip_showError": {
+        "prefix": "snip_showError",
+        "body": [
+            "function showError(errorText) {",
+                "    const errorBoxDiv = document.getElementById('error-box'); //find error box",
+                "    const errorSpan = document.createElement('p');    //create span (paragraph element) to store error tex",
+                "    errorSpan.innerText = errorText; //add error text",
+                "    errorBoxDiv.appendChild(errorSpan); //add error text to the box",
+                "    console.error(errorText); //console.log(errorText) for redundant error message",
+                "}"
+        ],
+        "description": "Snippet for showError function"
+    },
+    "snip_catch": {
+        "prefix": "snip_catch",
+        "body": [
+            "try {",
+                "    mainFunction();",
+                "} catch (error) {",
+                "    showError('failed to run mainFunction() JS exception' + error);",
+                "}"
+        ],
+        "description": "JavaScript catch snippet"
+    },
+    "snip_canvas": {
+        "prefix": "snip_canvas",
+        "body": [
+            "const canvas = document.getElementById(\"IDcanvas\");",
+            "if (!canvas){",
+                "    showError(\"Can't find canvas reference\");",
+                "    return;",
+                "}"
+        ],
+        "description": "Snippet for getting canvas element"
+    },
+    "snip_webgl2": {
+        "prefix": "snip_webgl2",
+        "body": [
+            "const gl = canvas.getContext(\"webgl2\");",
+            "if (!gl){",
+                "    showError(\"Can't find webgl2 support\");",
+                "    return;",
+                "}"
+        ],
+        "description": "Snippet for getting webgl2 context"
+    },
+    "Circle Array": {
+        "prefix": "snip_circleArray",
+        "body": [
+            "const arrayCircle = [0, 0];",
+            "var x, y;",
+            "const sides = 3;",
+            "var thetaCircleIncr = (2 * Math.PI) / sides;",
+            "var totalCircleAngle = 2 * Math.PI;",
+            "var r = 1;",
+            "",
+            "for (p = 0; p <= totalCircleAngle; p += thetaCircleIncr) {",
+                "  x = r * Math.cos(p);",
+                "  y = r * Math.sin(p);",
+                "",
+                "  arrayCircle.push(x);",
+                "  arrayCircle.push(y);",
+                "}"
+        ],
+        "description": "Create an array of circle points"
+    },
+    "Sphere Array": {
+        "prefix": "snip_SphereArray",
+        "body": [
+            "this.init = function(_this) {",
+                "  var SPHERE_DIV = 12;",
+                "  var i, ai, si, ci;",
+                "  var j, aj, sj, cj;",
+                "  var p1, p2;",
+
+                "  // Vertices",
+                "  var vertices = [], indices = [];",
+                "  for (j = 0; j <= SPHERE_DIV; j++) {",
+                    "    aj = j * Math.PI / SPHERE_DIV;",
+                    "    sj = Math.sin(aj);",
+                    "    cj = Math.cos(aj);",
+                    "    for (i = 0; i <= SPHERE_DIV; i++) {",
+                        "      ai = i * 2 * Math.PI / SPHERE_DIV;",
+                        "      si = Math.sin(ai);",
+                        "      ci = Math.cos(ai);",
+
+                        "      vertices.push(si * sj);  // X",
+                        "      vertices.push(cj);       // Y",
+                        "      vertices.push(ci * sj);  // Z",
+                        "    }",
+                        "  }",
+                        "  _this.attributes.aPosition.bufferData = new Float32Array(vertices);",
+                        "  _this.attributes.aColor.bufferData = new Float32Array(vertices);",
+
+                        "  // Indices",
+                        "  for (j = 0; j < SPHERE_DIV; j++) {",
+                            "    for (i = 0; i < SPHERE_DIV; i++) {",
+                                "      p1 = j * (SPHERE_DIV+1) + i;",
+                                "      p2 = p1 + (SPHERE_DIV+1);",
+
+                                "      indices.push(p1);",
+                                "      indices.push(p2);",
+                                "      indices.push(p1 + 1);",
+
+                                "      indices.push(p1 + 1);",
+                                "      indices.push(p2);",
+                                "      indices.push(p2 + 1);",
+                                "    }",
+                                "  }",
+                                "  _this.indices = new Uint8Array(indices);",
+
+                                "  // Selection color",
+                                "  var selColor = [];",
+                                "  _this.selColor = _this.selColor.map(function(n) { return n/255; });",
+                                "  for (j = 0; j <= SPHERE_DIV; j++) {",
+                                    "    for (i = 0; i <= SPHERE_DIV; i++) {",
+                                        "      selColor.push(_this.selColor[0]);",
+                                        "      selColor.push(_this.selColor[1]);",
+                                        "      selColor.push(_this.selColor[2]);",
+                                        "      selColor.push(_this.selColor[3]);",
+                                        "    }",
+                                        "  }",
+                                        "  _this.attributes.aSelColor = {",
+                                            "    size:4,",
+                                            "    offset:0,",
+                                            "    bufferData: new Float32Array(selColor),",
+                                            "  };",
+                                            "}(this);"
+        ],
+        "description": "Snippet for initializing a sphere."
+    },
+    "Array Cube": {
+        "prefix": "snip_CubeArray",
+        "body": [
+            "const arrayCube = [",
+                "    // Vertices        // RGBA",
+                "    // Red (front face)",
+                "    -0.5, -0.5, 0,     1.0, 0.0, 0.0, 1.0,",
+                "    -0.5, 0.5, 0,      0.1, 0.1, 0.1, 0.0,",
+                "    0.5, 0.5, 0,       0.1, 0.1, 0.1, 0.0,",
+                "    0.5, -0.5, 0,      0.1, 0.1, 0.1, 0.0,",
+                "",
+                "    // Top face (Green)",
+                "    -0.5, 0.5, 0,      0.0, 1.0, 0.0, 1.0,",
+                "    -0.5, 0.5, 1,      0.0, 1.0, 0.0, 1.0,",
+                "    0.5, 0.5, 1,       0.0, 1.0, 0.0, 1.0,",
+                "    0.5, 0.5, 0,       0.0, 1.0, 0.0, 1.0,",
+                "",
+                "    // Right face (Blue)",
+                "    0.5, -0.5, 0,      0.0, 0.0, 1.0, 1.0,",
+                "    0.5, 0.5, 0,       0.0, 0.0, 1.0, 1.0,",
+                "    0.5, 0.5, 1,       0.0, 0.0, 1.0, 1.0,",
+                "    0.5, -0.5, 1,      0.0, 0.0, 1.0, 1.0,",
+                "",
+                "    // Back face (Yellow)",
+                "    0.5, -0.5, 1,      1.0, 1.0, 0.0, 1.0,",
+                "    0.5, 0.5, 1,       1.0, 1.0, 0.0, 1.0,",
+                "    -0.5, 0.5, 1,      1.0, 1.0, 0.0, 1.0,",
+                "    -0.5, -0.5, 1,     1.0, 1.0, 0.0, 1.0,",
+                "    ",
+                "    // Bottom face (Purple)",
+                "    -0.5, -0.5, 1,     0.5, 0.0, 0.5, 1.0,",
+                "    -0.5, -0.5, 0,     0.5, 0.0, 0.5, 1.0,",
+                "    0.5, -0.5, 0,      0.5, 0.0, 0.5, 1.0,",
+                "    0.5, -0.5, 1,      0.5, 0.0, 0.5, 1.0,",
+                "",
+                "    // Left face (Orange)",
+                "    -0.5, -0.5, 1,     1.0, 0.5, 0.0, 1.0,",
+                "    -0.5, 0.5, 1,      1.0, 0.5, 0.0, 1.0,",
+                "    -0.5, 0.5, 0,      1.0, 0.5, 0.0, 1.0,",
+                "    -0.5, -0.5, 0,     1.0, 0.5, 0.0, 1.0",
+                "];"
+        ],
+        "description": "Creates an array for a cube with color data."
+    },
+    "GL Buffer": {
+        "prefix": "snip_buffer",
+        "body": [
+            "const positionBuffer = gl.createBuffer();",
+            "gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);",
+            "gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);"
+        ],
+        "description": "Creates a buffer and binds data to it."
+    },
+    "Vertex Shader Source Code": {
+        "prefix": "snip_vertexShaderSourceCode",
+        "body": [
+            "const vertexShaderSourceCode =`",
+            "    precision mediump float;",
+            "",
+            "    attribute vec3 position;",
+            "    attribute vec3 color;",
+            "    varying vec3 vColor;",
+            "",
+            "    uniform mat4 u_TranslateMatrix;",
+            "    uniform mat4 u_ScaleMatrix;",
+            "    uniform mat4 u_RotateMatrix;",
+            "",
+            "    void main() {",
+                "        vColor = color;",
+                "        gl_Position = u_ScaleMatrix * u_RotateMatrix * u_TranslateMatrix * vec4(position, 1);",
+                "    }",
+                "`;"
+        ],
+        "description": "Snippet for Vertex Shader Source Code"
+    },
+    "Fragment Shader Source Code": {
+        "prefix": "snip_fragmentShaderSourceCode",
+        "body": [
+            "const fragmentShaderSourceCode =`",
+            "    precision mediump float;",
+            "",
+            "    varying vec3 vColor;",
+            "",
+            "    void main() {",
+                "        gl_FragColor = vec4(vColor, 1);",
+                "    }",
+                "`;"
+        ],
+        "description": "Snippet for Fragment Shader Source Code"
+    },
+    "create Shader": {
+        "prefix": "snip_createShader",
+        "body": [
+            "const vertexShader = gl.createShader(gl.VERTEX_SHADER);",
+            "gl.shaderSource(vertexShader, vertexShaderSourceCode);",
+            "gl.compileShader(vertexShader);",
+            "if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {",
+                "    const errorMessage = gl.getShaderInfoLog(vertexShader);",
+                "    showError('Compile vertex error: ' + errorMessage);",
+                "    return;",
+                "}"
+        ],
+        "description": "Creates a vertex shader, compiles it and checks for errors."
+    },
+    "GPU Program": {
+        "prefix": "snip_gpuProgram",
+        "body": [
+            "const program = gl.createProgram();",
+            "gl.attachShader(program, vertexShader);",
+            "gl.attachShader(program, fragmentShader);",
+            "gl.linkProgram(program);",
+            "if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {",
+                "    const errorMessage = gl.getProgramInfoLog(program);",
+                "showError(`Failed to link GPU program: \\${errorMessage}`);",
+                "    return;",
+                "}"
+        ],
+        "description": "Creates a GPU program, attaches shaders, links it and checks for errors."
+    },
+    "positionLocation Attribute Setup": {
+        "prefix": "snip_positionLocation",
+        "body": [
+            "const positionLocation = gl.getAttribLocation(program, `position`);",
+            "if (positionLocation < 0) {",
+                "    showError(`Failed to get attribute location for position`);",
+                "    return;",
+                "}",
+                "gl.enableVertexAttribArray(positionLocation);",
+                "gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);",
+                "gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);",
+                "gl.useProgram(program);"
+        ],
+        "description": "Snippet for setting up a GLSL attribute"
+    },
+    "snip_uniformLocations": {
+        "prefix": "snip_uniformLocations",
+        "body": [
+            "const uniformLocations = {",
+                "   uTranslateMatrix: gl.getUniformLocation(program, `u_TranslateMatrix`),",
+                "};",
+                "",
+                "if (uniformLocations.uTranslateMatrix == null) {",
+                    "    showError(`Failed to get uniform location for u_TranslateMatrix`);",
+                    "    return;",
+                    "}"
+        ],
+        "description": "JavaScript uniformLocations snippet"
+    },
+    "Identity Matrix Setup": {
+        "prefix": "snip_",
+        "body": [
+            "const IdMatrix = [",
+                "    1, 0, 0, 0,",
+                "    0, 1, 0, 0,",
+                "    0, 0, 1, 0,",
+                "    0, 0, 0, 1",
+                "];"
+        ],
+        "description": "Snippet for setting up an Identity Matrix"
+    },
+    "Translate Matrix": {
+        "prefix": "snip_translateMatrix",
+        "body": [
+            "function translateMatrix(matrix, translationVector) {",
+                "    if (matrix.length !== 16 || translationVector.length !== 4) {",
+                    "        throw new Error('translateMatrix Input matrix must be a 4x4 matrix, and translation vector must have 4 elements.');",
+                    "        showError('translateMatrix Input matrix must be a 4x4 matrix, and translation vector must have 4 elements.');",
+                    "    }",
+                    "    const existingTranslation = [matrix[12], matrix[13], matrix[14]];",
+                    "    const newTranslation = [",
+                        "        existingTranslation[0] + translationVector[0],",
+                        "        existingTranslation[1] + translationVector[1],",
+                        "        existingTranslation[2] + translationVector[2]",
+                        "    ];",
+                        "    const resultMatrix = [",
+                            "        matrix[0], matrix[1], matrix[2], matrix[3],",
+                            "        matrix[4], matrix[5], matrix[6], matrix[7],",
+                            "        matrix[8], matrix[9], matrix[10], matrix[11],",
+                            "        newTranslation[0], newTranslation[1], newTranslation[2], matrix[15]",
+                            "    ];",
+                            "    return resultMatrix;",
+                            "}"
+        ],
+        "description": "Translate Matrix Function"
+    },
+    "Scale Matrix": {
+        "prefix": "snip_scaleMatrix",
+        "body": [
+            "function scaleMatrix(matrix, scaleVector) {",
+                "    if (matrix.length !== 16 || scaleVector.length !== 4) {",
+                    "        throw new Error('scaleMatrix Input matrix must be a 4x4 matrix, and scale vector must have 4 elements.');",
+                    "        showError('scaleMatrix Input matrix must be a 4x4 matrix, and scale vector must have 4 elements.');",
+                    "    }",
+                    "    const scaledMatrix = matrix.map((value, index) => value * scaleVector[index % 4]);",
+                    "    return scaledMatrix;",
+                    "}"
+        ],
+        "description": "Scale Matrix Function"
+    },
+    "Rotate Z": {
+        "prefix": "snip_rotateZ",
+        "body": [
+            "function rotateZ(matrix, theta){",
+                "    const cosTheta = Math.cos(theta);",
+                "    const sinTheta = Math.sin(theta);",
+                "    const result = matrix.slice();",
+                "    result[0] = cosTheta * matrix[0] - sinTheta * matrix[1];",
+                "    result[1] = sinTheta * matrix[0] + cosTheta * matrix[1];",
+                "    result[4] = cosTheta * matrix[4] - sinTheta * matrix[5];",
+                "    result[5] = sinTheta * matrix[4] + cosTheta * matrix[5];",
+                "    return result;",
+                "}"
+        ],
+        "description": "Rotate Z Function"
+    },
+    "Rotate X": {
+        "prefix": "snip_rotateX",
+        "body": [
+            "function rotateX(matrix, theta){",
+                "    const cosTheta = Math.cos(theta);",
+                "    const sinTheta = Math.sin(theta);",
+                "    const result = matrix.slice();",
+                "    result[5] = cosTheta * matrix[5] - sinTheta * matrix[9];",
+                "    result[6] = sinTheta * matrix[5] + cosTheta * matrix[9];",
+                "    result[9] = -sinTheta * matrix[5] + cosTheta * matrix[9];",
+                "    result[10] = cosTheta * matrix[5] + sinTheta * matrix[9];",
+                "    return result;",
+                "}"
+        ],
+        "description": "Rotate X Function"
+    },
+    "Rotate Y": {
+        "prefix": "snip_rotateY",
+        "body": [
+            "function rotateY(matrix, theta) {",
+                "    const cosTheta = Math.cos(theta);",
+                "    const sinTheta = Math.sin(theta);",
+                "    const result = matrix.slice(); // Create a copy of the matrix to modify the result",
+                "    // Apply the rotation transformation",
+                "    result[0] = cosTheta * matrix[0] + sinTheta * matrix[2];",
+                "    result[2] = -sinTheta * matrix[0] + cosTheta * matrix[2];",
+                "    result[8] = cosTheta * matrix[8] + sinTheta * matrix[10];",
+                "    result[10] = -sinTheta * matrix[8] + cosTheta * matrix[10];",
+                "    return result;",
+                "}"
+        ],
+        "description": "Rotate Y Function"
+    },
+    "Canvas bounce Logic Function": {
+        "prefix": "snip_directionPositionLogic",
+        "body": [
+            "// Create direction and position logic",
+            "const canvasSizePixels = Math.min(canvas.width, canvas.height);",
+            "",
+            "const sizeClipSpaceShape = 1.6;",
+            "const sizePixelsShape = sizeClipSpaceShape * canvasSizePixels / 2;",
+            "var positionLocation = gl.getUniformLocation(program, 'uPosition');"
+        ],
+        "description": "Function to create direction and position logic"
+    },
+    "Animate bounce Update Function": {
+        "prefix": "snip_updateAnim",
+        "body": [
+            "function update() {",
+                "    animPositionShape.x += animDirectionShape.x;",
+                "    animPositionShape.y += animDirectionShape.y;",
+                "    if (animPositionShape.x - sizePixelsShape/2 < 0 || animPositionShape.x + sizePixelsShape/2 > canvas.width) {",
+                    "        animDirectionShape.x *= -1;",
+                    "    }",
+                    "    if (animPositionShape.y - sizePixelsShape/2 < 0 || animPositionShape.y + sizePixelsShape/2 > canvas.height) {",
+                        "        animDirectionShape.y *= -1;",
+                        "    }",
+                        "}"
+        ],
+        "description": "Update function for animation"
+    },
+    "draw bounce Animate function": {
+        "prefix": "snip_drawAnim",
+        "body": [
+            "const clipXShape = (animPositionShape.x / canvas.width) * 2 - 1;",
+            "const clipYShape = (animPositionShape.y / canvas.height) * -2 + 1;",
+            "",
+            "gl.uniform2f(positionLocation, clipXShape, clipYShape);",
+            "gl.bindBuffer(gl.ARRAY_BUFFER, bufferShape);",
+            "gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);",
+            "gl.drawArrays(gl.TRIANGLES, 0, 6);"
+        ],
+        "description": "GL Buffer function for animation"
+    },
+    "Button Event Listener Function": {
+        "prefix": "snip_buttonEvent",
+        "body": [
+            "document.getElementById('btnXLock').addEventListener('click', function() {",
+                "    rotateX = !rotateX;",
+                "});"
+        ],
+        "description": "Event listener for 'btnXLock' button"
+    },
+    "Animation Toggle Function": {
+        "prefix": "snip_toggleAnimation",
+        "body": [
+            "var isAnimating = true;",
+            "function toggleAnimation() {",
+                "    isAnimating = !isAnimating;",
+                "    if (isAnimating) {",
+                    "        loop();",
+                    "    }",
+                    "}",
+                    "function loop() {",
+                        "    if (!isAnimating) {",
+                            "        return;",
+                            "    }",
+                            "    update();",
+                            "    draw();",
+                            "    requestAnimationFrame(loop);",
+                            "}"
+        ],
+        "description": "Function to toggle animation"
+    },
+    "Animation Function": {
+        "prefix": "snip_animationFunction",
+        "body": [
+            "function animate() {",
+                "    requestAnimationFrame(animate);",
+                "    theta = theta + Math.PI / 500;",
+                "    gl.uniformMatrix4fv(uniformLocations.uTranslateMatrix, false, translatedMatrix);",
+                "    gl.clearColor(0.1, 0.3, 0.3, 1);",
+                "    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);",
+                "    gl.drawArrays(gl.TRIANGLES, 0, 3);",
+                "}",
+                "animate();"
+        ],
+        "description": "Snippet for an animation function in WebGL"
+    },
+        "Matrix Multiplication": {
+        "prefix": "snip_multiplyMatrices",
+        "body": [
+            "function multiplyMatrices(matrixA, matrixB) {",
+            "    let result = new Array(16).fill(0);",
+            "    for (let i = 0; i < 4; i++) {",
+            "        for (let j = 0; j < 4; j++) {",
+            "            for (let k = 0; k < 4; k++) {",
+            "                result[i * 4 + j] += matrixA[i * 4 + k] * matrixB[k * 4 + j];",
+            "            }",
+            "        }",
+            "    }",
+            "    return result;",
+            "}"
+        ],
+        "description": "Multiplies two 4x4 matrices"
+    },
+        "Matrix X Rotation": {
+        "prefix": "snip_matrixX",
+        "body": [
+            "const matrixX = [",
+            "    1, 0, 0, 0,",
+            "    0, Math.cos(theta), -Math.sin(theta), 0,",
+            "    0, Math.sin(theta), Math.cos(theta), 0,",
+            "    0, 0, 0, 1",
+            "]"
+        ],
+        "description": "Snippet for Matrix X Rotation"
+    },
+        "Matrix Y Rotation": {
+        "prefix": "snip_matrixY",
+        "body": [
+            "const matrixY = [",
+            "    Math.cos(theta), 0, Math.sin(theta), 0,",
+            "    0, 1, 0, 0,",
+            "    -Math.sin(theta), 0, Math.cos(theta), 0,",
+            "    0, 0, 0, 1",
+            "]"
+        ],
+        "description": "Snippet for Matrix Y Rotation"
+    },
+        "Matrix Z Rotation": {
+        "prefix": "snip_matrixZ",
+        "body": [
+            "const matrixZ = [",
+            "    Math.cos(theta), -Math.sin(theta), 0, 0,",
+            "    Math.sin(theta), Math.cos(theta), 0, 0,",
+            "    0, 0, 1, 0,",
+            "    0, 0, 0, 1",
+            "]"
+        ],
+        "description": "Snippet for Matrix Z Rotation"
+    },
+    "WebGL Texture Creation": {
+        "prefix": "snip_webglTexture",
+        "body": [
+            "let Texturet = webgl.createTexture();",
+            "webgl.pixelStorei(webgl.UNPACK_FLIP_Y_WEBGL, true);",
+            "webgl.activeTexture(webgl.TEXTURE0);",
+            "function isPower(value) {",
+            "    console.log(value);",
+            "    console.log(value - 1);",
+            "    return( value & (value -1)) === 0;",
+            "}",
+            "if(isPower(image.width) && isPower(height)) {",
+            "    webgl.generateMipmap(webgl.TEXTURE_2D);",
+            "}",
+            "else{",
+            "    webgl.bindTexture(webgl.TEXTURE_2D, Texturet);",
+            "    webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_WRAP_S, webgl.CLAMP_TO_EDGE);",
+            "    webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_WRAP_T, webgl.CLAMP_TO_EDGE);",
+            "    webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, webgl.LINEAR);",
+            "    webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, webgl.LINEAR);",
+            "}",
+            "webgl.texImage2D(webgl.TEXTURE_2D, 0, webgl.RGBA, webgl.RGBA, webgl.UNSIGNED_BYTE, image);"
+        ],
+        "description": "Snippet for creating a WebGL texture."
+    }, 
+       "Add Button Event Listener": {
+        "prefix": "snip_button",
+        "body": [
+            "document.getElementById('btnStartStop').addEventListener('click', fX);"
+        ],
+        "description": "Snippet for adding an event listener to a button."
+    },
+    "Keydown Keypress Event Listener": {
+        "prefix": "snip_keydownEvent",
+        "body": [
+            "document.addEventListener('keydown', function (event) {",
+            "    if (event.key === 'x') {",
+            "        X = !X;",
+            "    }",
+            "});"
+        ],
+        "description": "Snippet for adding a keydown event listener."
+    },
+        "Draw the square": {
+        "prefix": "snip_drawSquare",
+        "body": [
+            "// Draw the square",
+            "gl.useProgram(programSquare);",
+            "const squareClipX = (animPositionShape.x / canvas.width) * 2 - 1;",
+            "const squareClipY = (animPositionShape.y / canvas.height) * -2 + 1;",
+            "gl.uniform2f(squarePositionLocation, squareClipX, squareClipY);",
+            "gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);",
+            "gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);",
+            "gl.drawArrays(gl.TRIANGLES, 0, 6);"
+        ],
+        "description": "Code to draw a square in WebGL"
+    },
+        "Adjust for Aspect Ratio": {
+        "prefix": "snip_adjustAspectRatio",
+        "body": [
+            "let aspectRatio = canvas.width / canvas.height;",
+            "let scaleFactor = aspectRatio > 1 ? 1 / aspectRatio : aspectRatio;",
+            "gl.scale(scaleFactor, scaleFactor);"
+        ],
+        "description": "Code to adjust the scale of the WebGL drawing context based on the canvas aspect ratio"
+    },
+    "Texture Fragment Shader": {
+        "prefix": "snip_TextureFrag",
+        "body": [
+            "const fragmentShaderSourceCode = `",
+            "    precision mediump float;",
+            "",
+            "    varying vec2 fragTexCoord;",
+            "    uniform sampler2D sampler;",
+            "",
+            "    void main() {",
+            "        gl_FragColor = texture2D(sampler, fragTexCoord);",
+            "    }`;"
+        ],
+        "description": "Snippet for a Texture Fragment Shader"
+    },
+    "WebGL Texture Binding": {
+        "prefix": "snip_TextureCreate",
+        "body": [
+            "const texture = gl.createTexture();",
+            "gl.bindTexture(gl.TEXTURE_2D, texture);",
+            "gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);",
+            "gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);",
+            "gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);",
+            "gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);",
+            "gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, document.getElementById(textureId));",
+            "gl.bindTexture(gl.TEXTURE_2D, null);"
+        ],
+        "description": "Snippet for WebGL Texture Binding"
+    },
+
+}

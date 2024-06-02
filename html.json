@@ -1,0 +1,27 @@
+{
+    "htmlSnippet": {
+        "prefix": "snip_htmlwebgl",
+        "body": [
+            "<!doctype html>",
+            "<html lang=\"en\">",
+            "    <head>",
+            "        <meta charset=\"utf-8\">",
+            "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+            "        <title>Shahied Rustin</title>",
+            "        <link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">",
+            "        <script src=\"main.js\" type=\"module\"></script>",
+            "    </head>",
+            "    <body>",
+            "        <canvas id=\"IDcanvas\" width=\"800px\" height=\"600px\">",
+            "            canvas error",
+            "        </canvas>",
+            "        <br/>",
+            "        <div id=\"error-box\">",
+            "            <span class=\"error-box-title\">Error messages</span>",
+            "        </div>",
+            "    </body>",
+            "</html>"
+        ],
+        "description": "HTML Snippet"
+    }
+}
